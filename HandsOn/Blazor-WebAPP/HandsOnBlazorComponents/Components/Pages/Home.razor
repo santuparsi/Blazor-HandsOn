@@ -1,0 +1,15 @@
+﻿@page "/"
+@using HandsOnBlazorComponents.Models
+<Greeting Name="Santhosh!!" />
+<Greeting Name="Virat" />
+<Greeting Name="@name" />
+<UserInfo UserName="Alice" Age="30" IsActive="true" />
+<EmployeeCard Employee="emp" />
+<Counter />
+<UserDetails />
+<UserList />
+@code
+{
+    private Employee emp = new Employee { Id = 101, Name = "John Doe" };
+    private string name = "Rohith";
+}

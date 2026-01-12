@@ -1,0 +1,20 @@
+﻿@using HandsOnBlazorComponents.Models
+<h3>UserDetails</h3>
+<div id="container">
+    <p>Name: @user.Name</p>
+    <p>Age: @user.Age</p>
+    <p>Email: @user.Email</p>
+    <p>Is Active: @user.IsActive</p>
+    <p>Status: @(user.IsActive ? "Active" : "Inactive")</p>
+</div>
+
+@code {
+    private User user = new User
+    {
+        Name = "John Smith",
+        Age = 28,
+        Email = "smith@gmail.com",
+        IsActive = true
+    };
+    
+}

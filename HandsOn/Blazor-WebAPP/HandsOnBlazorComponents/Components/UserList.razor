@@ -1,0 +1,49 @@
+﻿@using HandsOnBlazorComponents.Models
+<h3>UserList</h3>
+<div class="container">
+    <table class="table table-bordered">
+        <thead>
+            <tr class="table-dark">
+                <th>Name</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Is Active</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in users)
+            {
+                @if (user.IsActive)
+                {
+                    <tr class="bg-info">
+                        <td>@user.Name</td>
+                        <td>@user.Age</td>
+                        <td>@user.Email</td>
+                        <td>@(user.IsActive ? "Yes" : "No")</td>
+                    </tr>
+                }
+                else
+                {
+                    <tr class="bg-warning">
+                        <td>@user.Name</td>
+                        <td>@user.Age</td>
+                        <td>@user.Email</td>
+                        <td>@(user.IsActive ? "Yes" : "No")</td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+@code {
+    //crate a list of users
+    private List<User> users = new List<User>
+    {
+        new User { Name = "Alice Johnson", Age = 30, Email = "Alice@gmail.com", IsActive = true },
+        new User { Name = "Bob Smith", Age = 25, Email = "bob@gmail.com", IsActive = false },
+        new User { Name = "Charlie Brown", Age = 35, Email = "brown@gmail.com", IsActive = true },
+        new User { Name = "David Wilson", Age = 28, Email = "david@gmail.com", IsActive = false }
+
+};
+}

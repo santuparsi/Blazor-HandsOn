@@ -1,0 +1,25 @@
+﻿@page "/products/{id:int}"
+@using HandsOnBlazorRoutingAndNavigation.Models
+@using HandsOnBlazorRoutingAndNavigation.Services
+@inject ProductService Service
+@rendermode InteractiveServer
+
+<h3>Product Details</h3>
+
+@if (product != null)
+{
+    <p>Name: @product.Name</p>
+    <p>Price: @product.Price</p>
+    <p>Stock: @product.Stock</p>
+}
+
+@code {
+    Product? product;
+    [Parameter]
+    public int id { get; set; }
+
+    protected override void OnInitialized()
+    {
+        product = Service.GetById(id);
+    }
+}

@@ -1,0 +1,15 @@
+﻿@rendermode InteractiveServer
+<h3>Select Country</h3>
+
+<select @bind="SelectedCountry">
+    <option value="">-- Select --</option>
+    <option value="India">India</option>
+    <option value="USA">USA</option>
+    <option value="UK">UK</option>
+</select>
+
+<p>You selected: @SelectedCountry</p>
+
+@code {
+    string SelectedCountry = "";
+}

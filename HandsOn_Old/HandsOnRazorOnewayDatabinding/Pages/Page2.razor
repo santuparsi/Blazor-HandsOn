@@ -1,0 +1,19 @@
+﻿@page "/page2"
+@using HandsOnRazorOnewayDatabinding.Data
+<div class="container">
+    <pre>
+        Id:@product.ProductId
+        Name:@product.ProductName
+        Price:@product.Price
+    </pre>
+</div>
+
+
+@code {
+    Product product = new Product()
+        {
+            ProductId = 34203,
+            ProductName = "Mouse",
+            Price = 345
+        };
+}

@@ -1,0 +1,61 @@
+﻿@page "/products"
+@rendermode InteractiveServer
+@using ProductManagementSystem.Models
+@inject Services.ProductService ProductService
+<h3>ProductList</h3>
+<button class="btn btn-primary" @onclick="CreateProduct">
+    Add Product
+</button>
+
+<table class="table mt-3">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Products)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>@product.Price</td>
+                <td>
+                    <button class="btn btn-warning"
+                            @onclick="() => EditProduct(product.Id)">
+                        Edit
+                    </button>
+
+                    <button class="btn btn-danger"
+                            @onclick="() => DeleteProduct(product.Id)">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@code {
+    private List<Product> Products = new();
+    protected override void OnInitialized()
+    {
+        Products = ProductService.GetAll();
+    }
+    private void CreateProduct()
+    {
+        NavigationManager.NavigateTo("/products/create");
+    }
+    private void EditProduct(int id)
+    {
+        NavigationManager.NavigateTo($"/products/edit/{id}");
+    }
+
+    private void DeleteProduct(int id)
+    {
+        ProductService.Delete(id);
+    }
+    // Dependencies
+    // Injected navigation manager for page navigation
+    [Inject] NavigationManager NavigationManager { get; set; } = default!;
+}

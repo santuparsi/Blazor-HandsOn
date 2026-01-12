@@ -1,0 +1,10 @@
+﻿@page "/page2/{FirstName}/{LastName}"
+<h3>Hello @Fullname</h3>
+
+@code {
+    [Parameter]
+    public string FirstName{ get; set; }
+    [Parameter]
+    public string LastName{ get; set; }
+    public string Fullname => FirstName + " " + LastName;
+}

@@ -1,0 +1,17 @@
+﻿
+<h3>My First Blazor Component</h3>
+
+<p>Hello, @UserName!</p>
+
+<button class="btn btn-primary" @onclick="ChangeName">
+    Change Name
+</button>
+
+@code {
+    private string UserName = "Santhosh";
+
+    private void ChangeName()
+    {
+        UserName = "Blazor Developer";
+    }
+}

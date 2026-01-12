@@ -1,0 +1,26 @@
+﻿@page "/registeruserform"
+@rendermode InteractiveServer
+@using HandsOnBlazorFormsValidation.Models
+<EditForm Model="@model" OnValidSubmit="Register">
+    <DataAnnotationsValidator />
+
+    <InputText class="form-control" @bind-Value="model.Email" />
+    <ValidationMessage For="@(() => model.Email)" />
+
+    <InputText type="password" class="form-control" @bind-Value="model.Password" />
+    <ValidationMessage For="@(() => model.Password)" />
+
+    <InputText type="password" class="form-control" @bind-Value="model.ConfirmPassword" />
+    <ValidationMessage For="@(() => model.ConfirmPassword)" />
+
+    <button class="btn btn-primary">Register</button>
+</EditForm>
+
+@code {
+    RegisterUser model = new();
+
+    private void Register()
+    {
+        // Call API
+    }
+}

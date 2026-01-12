@@ -1,0 +1,11 @@
+﻿@* route with no parameter*@
+@page "/page1"
+@* route with  parameter*@
+@page "/page1/{Name}" 
+<h3>Hello,@Name</h3>
+<a href="Page2/Vinod/Kambli">Page2</a>
+
+@code {
+    [Parameter]
+    public string Name { get; set; } = "Tim";
+}

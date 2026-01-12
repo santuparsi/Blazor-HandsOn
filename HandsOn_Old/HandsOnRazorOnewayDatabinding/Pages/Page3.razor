@@ -1,0 +1,32 @@
+﻿@page "/page3"
+@using HandsOnRazorOnewayDatabinding.Data
+<div class="container">
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+        @foreach(var item in list)
+        {
+            <tr>
+                <td>@item.ProductId</td>
+                <td>@item.ProductName</td>
+                <td>@item.Price</td>
+
+            </tr>
+        }
+    </table>
+</div>
+
+@code {
+    List<Product> list = new List<Product>()
+    {
+        new Product(){ProductId=1,ProductName="Mouse",Price=200 },
+          new Product(){ProductId=1,ProductName="Mouse",Price=200 },
+            new Product(){ProductId=1,ProductName="Mouse",Price=200 },
+              new Product(){ProductId=1,ProductName="Mouse",Price=200 },
+
+            new Product(){ProductId=1,ProductName="Mouse",Price=200 }
+    };
+}

@@ -1,0 +1,7 @@
+﻿@rendermode InteractiveServer
+<input @bind="SearchText" @bind:event="oninput" />
+<p>Searching for: @SearchText</p>
+
+@code {
+    string SearchText = "";
+}

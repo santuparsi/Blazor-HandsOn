@@ -1,0 +1,19 @@
+﻿@rendermode InteractiveServer
+<input @bind="product.Name" />
+<input type="number" @bind="product.Price" />
+
+<p>@product.Name - ₹@product.Price</p>
+
+@code {
+    Product product = new()
+    {
+        Name = "Laptop",
+        Price = 50000
+    };
+
+    class Product
+    {
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+    }
+}

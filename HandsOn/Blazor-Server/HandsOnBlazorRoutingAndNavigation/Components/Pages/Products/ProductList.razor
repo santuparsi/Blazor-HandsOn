@@ -1,0 +1,43 @@
+﻿@page "/products"
+@using HandsOnBlazorRoutingAndNavigation.Services
+@inject ProductService Service
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+<h3>Products</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Service.GetAll())
+        {
+            <tr>
+                <td>@p.Name</td>
+                <td>@p.Price</td>
+                <td>@p.Stock</td>
+                <td>
+                    <button class="btn btn-info btn-sm"
+                        @onclick="@(() => Nav.NavigateTo($"/products/{p.Id}"))">
+                        View
+                    </button>
+
+                    <button class="btn btn-warning btn-sm"
+                        @onclick="@(() => Nav.NavigateTo($"/products/edit/{p.Id}"))">
+                        Edit
+                    </button>
+
+                    <button class="btn btn-danger btn-sm"
+                        @onclick="() => Service.Delete(p.Id)">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

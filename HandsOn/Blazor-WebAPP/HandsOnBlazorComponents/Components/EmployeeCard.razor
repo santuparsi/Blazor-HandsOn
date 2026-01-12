@@ -1,0 +1,8 @@
+﻿@using HandsOnBlazorComponents.Models
+<h3>@Employee.Name</h3>
+<p>Employee Id:@Employee.Id</p>
+
+@code {
+    [Parameter]
+    public Employee Employee { get; set; }
+}

@@ -1,0 +1,34 @@
+﻿@page "/Page1"
+<h3>Hello @Name</h3>
+<h3>
+    Hello @(
+    Gender == "Male" ? $"Mr.{Name}" : $"Miss:{Name}")
+</h3>
+<div>
+    <table class="table">
+        <tr>
+            <td>Name</td>
+            <td>
+                <input type="text" value="@Name" class="form-control" /><br />
+            </td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td>
+                <input type="text" value="@Gender" readonly class="form-control" />
+            </td>
+        </tr>
+    </table>
+
+</div>
+<button @onclick="SetName">Click</button>
+
+@code {
+    public string Name { get; set; } = "Tim";
+    protected string Gender { get; set; } = "Male";
+    public void SetName()
+    {
+        Name = "Sudha";
+        Gender = "Female";
+    }
+}

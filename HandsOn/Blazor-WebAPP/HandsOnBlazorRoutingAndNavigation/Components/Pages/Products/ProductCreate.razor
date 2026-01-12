@@ -1,0 +1,25 @@
+﻿@page "/products/add"
+@using HandsOnBlazorRoutingAndNavigation.Models
+@using HandsOnBlazorRoutingAndNavigation.Services
+@inject ProductService Service
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+<h3>Add Product</h3>
+
+<EditForm Model="@product" OnValidSubmit="Save">
+    <InputText @bind-Value="product.Name" class="form-control" />
+    <InputNumber @bind-Value="product.Price" class="form-control" />
+    <InputNumber @bind-Value="product.Stock" class="form-control" />
+
+    <button class="btn btn-success mt-2">Save</button>
+</EditForm>
+
+@code {
+    Product product = new();
+
+    void Save()
+    {
+        Service.Add(product);
+        Nav.NavigateTo("/products");
+    }
+}

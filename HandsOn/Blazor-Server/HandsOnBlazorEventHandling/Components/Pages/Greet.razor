@@ -1,0 +1,23 @@
+﻿@page "/greet"
+@rendermode InteractiveServer
+<h3>Greet</h3>
+<input @bind="name" placeholder="Enter your name" />
+<button class="btn btn-primary" @onclick="() => GenerateGreeting(name)">Greet Me</button>
+<p>@greetingMessage</p>
+
+
+@code {
+    private string name;
+    private string greetingMessage = string.Empty;
+    private void GenerateGreeting(string n)
+    {
+        if (!string.IsNullOrWhiteSpace(n))
+        {
+            greetingMessage = $"Hello, {n}! Welcome to our application.";
+        }
+        else
+        {
+            greetingMessage = "Please enter your name.";
+        }
+    }
+}

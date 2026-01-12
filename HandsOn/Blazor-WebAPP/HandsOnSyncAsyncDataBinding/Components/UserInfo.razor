@@ -1,0 +1,10 @@
+﻿@* synchronous binding *@
+<h3>User Profile</h3>
+
+@* <input @bind="UserName" /> *@
+<input @bind="UserName" @bind:event="oninput" />
+<p>Hello, @UserName</p>
+
+@code {
+    string UserName = "San";
+}

@@ -1,0 +1,11 @@
+﻿@rendermode InteractiveServer
+<h3>Account Settings</h3>
+
+<input type="checkbox" @bind="IsSubscribed" />
+<label> Subscribe to newsletter</label>
+
+<p>Status: @(IsSubscribed ? "Subscribed" : "Not Subscribed")</p>
+
+@code {
+    bool IsSubscribed;
+}

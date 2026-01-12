@@ -1,0 +1,28 @@
+﻿@page "/products/edit/{id:int}"
+@using HandsOnBlazorRoutingAndNavigation.Models
+@using HandsOnBlazorRoutingAndNavigation.Services
+@inject ProductService Service
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+
+<EditForm Model="@product" OnValidSubmit="Update">
+    <InputText @bind-Value="product.Name" />
+    <InputNumber @bind-Value="product.Price" />
+    <InputNumber @bind-Value="product.Stock" />
+    <button class="btn btn-primary">Update</button>
+</EditForm>
+
+@code {
+    Product product = new();
+    [Parameter] public int id { get; set; }
+    protected override void OnInitialized()
+    {
+        product = Service.GetById(id)!;
+    }
+
+    void Update()
+    {
+        Service.Update(product);
+        Nav.NavigateTo("/products");
+    }
+}

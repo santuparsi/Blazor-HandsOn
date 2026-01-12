@@ -1,0 +1,16 @@
+﻿@page "/welcome"
+<h3 class="text-primary">Welcome to Blazor App design!!</h3>
+<h2>Logged At:@loggedAt</h2>
+<h3>Hello @Name</h3>
+<ul>
+    @foreach(var item in cities)
+    {
+        <li>@item</li>
+    }
+</ul>
+
+@code {
+    private DateTime loggedAt = DateTime.Now;
+    private string Name = "Virat";
+    public string[] cities = { "Hyderabad", "Pune", "Mumbai" };
+}

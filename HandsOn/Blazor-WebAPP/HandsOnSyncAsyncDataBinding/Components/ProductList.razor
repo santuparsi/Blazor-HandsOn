@@ -1,0 +1,25 @@
+﻿<h3>Products</h3>
+
+@if (products == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <ul>
+        @foreach (var product in products)
+        {
+            <li>@product</li>
+        }
+    </ul>
+}
+
+@code {
+    List<string>? products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(2000); // Simulate API call
+        products = new() { "Laptop", "Mobile", "Tablet" };
+    }
+}

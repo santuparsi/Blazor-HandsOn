@@ -1,0 +1,36 @@
+﻿@page "/userform"
+@rendermode InteractiveServer
+<EditForm Model="user"
+          OnValidSubmit="HandleSubmit"
+          FormName="UserForm">
+    <DataAnnotationsValidator />
+    <div class="mb-3">
+        <label>Name</label>
+        <InputText class="form-control" @bind-Value="user.Name" />
+    </div>
+
+    <div class="mb-3">
+        <label>Age</label>
+        <InputNumber class="form-control" @bind-Value="user.Age" />
+    </div>
+
+    <button class="btn btn-primary">Submit</button>
+</EditForm>
+
+<p>@message</p>
+
+@code {
+    private User user = new();
+    private string message;
+
+    private void HandleSubmit()
+    {
+        message = $"User {user.Name}, Age {user.Age} submitted";
+    }
+
+    class User
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+    }
+}

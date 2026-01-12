@@ -1,0 +1,13 @@
+﻿@page "/validate"
+@inject NavigationManager Navigation
+
+<h3>Page4</h3>
+<button @onclick=Validate>Login</button>
+
+@code {
+    private void Validate()
+    {
+       
+        Navigation.NavigateTo("counter"); //navigate to counter
+    }
+}

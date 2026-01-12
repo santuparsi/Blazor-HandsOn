@@ -1,0 +1,51 @@
+﻿@page "/page2"
+@using HandsOnBlazorTwowayBinding.Data
+<div>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td><input @bind="item.Id" /></td>
+        </tr>
+        <tr>
+            <td>Name</td>
+            <td><input @bind="item.Name" /></td>
+        </tr>
+        <tr>
+            <td>Price</td>
+            <td><input @bind="item.Price" /></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button @onclick="Add">Add</button>
+            </td>
+        </tr>
+    </table>
+    <hr />
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+        @foreach (var item in list)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
+
+            </tr>
+        }
+    </table>
+</div>
+
+@code {
+    protected List<Product> list=new List<Product>();
+    protected Product item = new Product();
+    protected void Add()
+    {
+        list.Add(item);
+        item = new Product();
+    }
+
+}

@@ -1,0 +1,17 @@
+﻿@rendermode InteractiveServer
+<h3>Age Verification</h3>
+
+<input type="number" @bind="Age" />
+
+@if (Age >= 18)
+{
+    <p>You are eligible</p>
+}
+else
+{
+    <p>You are not eligible</p>
+}
+
+@code {
+    int Age;
+}

@@ -1,0 +1,18 @@
+﻿@rendermode InteractiveServer
+<EditForm Model="@user">
+    <InputText @bind-Value="user.Name" placeholder="Name" />
+    <InputNumber @bind-Value="user.Age" />
+    <button type="submit">Save</button>
+</EditForm>
+
+<p>@user.Name - @user.Age</p>
+
+@code {
+    User user = new();
+
+    class User
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+    }
+}

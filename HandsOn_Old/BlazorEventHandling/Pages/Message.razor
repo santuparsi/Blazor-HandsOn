@@ -1,0 +1,13 @@
+﻿@page "/page1"
+<button @onclick=@(()=>Msg="Message set by lambda")>ClickMe</button><br />
+<button @onclick=SetMsg>Click</button>
+<h3>@Msg</h3>
+
+@code {
+    string Msg { get; set; }
+    //event-handler
+    private void SetMsg()
+    {
+        Msg = "Hello Listeners";
+    }
+}

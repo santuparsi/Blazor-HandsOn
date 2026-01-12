@@ -1,0 +1,12 @@
+﻿@page "/counter"
+@rendermode InteractiveServer   
+<h3>Visito Counter</h3>
+<p>Count:@count</p>
+<button class="btn btn-primary" @onclick="Increment">Increment</button>
+<button class="btn btn-secondary" @onclick="Decrement">Decrement</button>
+
+@code {
+    private int count;
+    private void Increment() => count++;
+    private void Decrement() => count--;
+}

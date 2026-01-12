@@ -1,0 +1,13 @@
+﻿@page "/page1"
+<h3>Page1</h3>
+@* <b>Name:</b><input value="@Name" @onchange="@(e=>{Name=e.Value.ToString();})" /> *@
+<b>Name:</b>
+@* <input  @bind="Name" /> *@
+<input @bind="Name" @bind:event="onchange" />
+<b>Name:</b>
+<input @bind="Name" @bind:event="oninput" /> @* This is raised as the value is being changed. *@
+<b>Hello:</b>@Name
+
+@code {
+    protected string Name { get; set; } = "Tom";
+}

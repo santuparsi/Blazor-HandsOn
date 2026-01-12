@@ -1,0 +1,63 @@
+﻿@page "/products/create"
+@page "/products/edit/{Id:int}"
+@rendermode InteractiveServer
+@inject Services.ProductService ProductService
+@inject NavigationManager NavigationManager
+@using ProductManagementSystem.Models
+
+<h3>@Title</h3>
+
+<EditForm Model="Product" OnValidSubmit="SaveAsync">
+    <DataAnnotationsValidator />
+
+    <div class="mb-2">
+        <label>Name</label>
+        <InputText class="form-control" @bind-Value="Product.Name" />
+    </div>
+
+    <div class="mb-2">
+        <label>Price</label>
+        <InputNumber class="form-control" @bind-Value="Product.Price" />
+    </div>
+
+    <button class="btn btn-success" type="submit">
+        Save
+    </button>
+    <button class="btn btn-secondary" type="button"
+            @onclick="Cancel">
+        Cancel
+    </button>
+</EditForm>
+
+@code {
+   
+    [Parameter] public int? Id { get; set; }
+
+    private Product Product = new();
+    private string Title = "Create Product";
+    // Lifecycle method to initialize the component
+    protected override void OnInitialized()
+    {
+        if (Id.HasValue)
+        {
+            Product = ProductService.GetById(Id.Value)!;
+            Title = "Edit Product";
+        }
+    }
+
+    private async Task SaveAsync()
+    {
+        if (Id.HasValue)
+            ProductService.Update(Product);
+        else
+            ProductService.Add(Product);
+
+        await Task.Delay(200); // simulate API latency
+        NavigationManager.NavigateTo("/products");
+    }
+
+    private void Cancel()
+    {
+        NavigationManager.NavigateTo("/products");
+    }
+}

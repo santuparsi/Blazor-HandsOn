@@ -1,0 +1,14 @@
+﻿@page "/greet"
+<h3>@greet</h3>
+<h3>Hello,@name</h3>
+<button onclick="@SetName">ClickeMe</button>
+< />
+
+@code {
+    private string greet = "Hell Users";
+    private string name = "David";
+    private void SetName()
+    {
+        name = "Rajeev";
+    }
+}

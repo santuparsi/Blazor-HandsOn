@@ -1,0 +1,40 @@
+﻿@page "/login"
+@rendermode InteractiveServer
+<PageTitle>Login</PageTitle>
+<EditForm Model="@loginModel" OnSubmit="HandleValidSubmit">
+    <InputText @bind-Value="loginModel.Username" />
+    <InputText @bind-Value="loginModel.Password" type="password" />
+    <button type="submit">Login</button>
+    <label>@errorMessage</label>
+    @* <p>@errorMessage</p> *@
+</EditForm>
+
+<h3>Login</h3>
+
+@code {
+    private LoginModel loginModel = new();
+    private string errorMessage = "Hello User";
+    private void HandleValidSubmit()
+    {
+        // Simple validation logic
+        if (string.IsNullOrWhiteSpace(loginModel.Username) || string.IsNullOrWhiteSpace(loginModel.Password))
+        {
+            errorMessage = "Username and Password are required.";
+        }
+        else if(loginModel.Username=="Admin" && loginModel.Password=="12345")
+        {
+            errorMessage = "Valid User";
+            // Perform login logic here
+        }
+        else
+        {
+            errorMessage = "Invalid User";
+        }
+    }
+
+    class LoginModel
+   {
+      public string? Username { get; set; }
+      public string? Password { get; set; }
+    }
+}
