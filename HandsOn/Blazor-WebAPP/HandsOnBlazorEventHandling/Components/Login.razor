@@ -1,0 +1,29 @@
+﻿<h3>Login</h3>
+<form>
+    Username:<input type="text" @bind="userLogin.Username" />
+    Password:<input type="password" @bind="userLogin.Password" />
+    <input type="submit" value="Login" @onclick="Validate" @onclick:preventDefault/>
+</form>
+<p>@errorMsg</p>
+@code {
+    private UserLogin userLogin = new();
+    private string errorMsg = string.Empty;
+    private void Validate()
+    {
+        if (userLogin.Username == "Virat" && userLogin.Password == "12345")
+        {
+            errorMsg = "Welcome " + userLogin.Username;
+        }
+        else
+        {
+            errorMsg = "Invalid Login Credentials";
+        }
+    }
+    class UserLogin
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+
+
+    }
+}

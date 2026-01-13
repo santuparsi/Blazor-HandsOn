@@ -1,0 +1,17 @@
+﻿@* Prevent Form Submission *@
+<form>
+    <button type="submit"
+            @onclick="Save"
+            @onclick:preventDefault>
+        Save
+    </button>
+
+</form>
+<p>@message</p>
+@code {
+    string message = "";
+    void Save()
+    {
+        message="Saved without page reload";
+    }
+}

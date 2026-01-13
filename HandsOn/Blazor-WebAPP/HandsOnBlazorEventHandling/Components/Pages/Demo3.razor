@@ -1,0 +1,11 @@
+﻿<input @onchange="OnNameChanged" />
+<p>@name</p>
+
+@code {
+    string name = "";
+    //ChangeEventArgs e used to get the value from the input field
+    void OnNameChanged(ChangeEventArgs e)
+    {
+        name = e.Value?.ToString();
+    }
+}

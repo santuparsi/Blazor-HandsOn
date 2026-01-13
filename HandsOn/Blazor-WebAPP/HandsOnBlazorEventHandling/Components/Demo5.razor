@@ -1,0 +1,17 @@
+﻿@* Prevent Link Navigation *@
+<a href="https://example.com"
+   @onclick="HandleClick"
+   @onclick:preventDefault>
+    Click Me
+</a>
+
+<p>@message</p>
+
+@code {
+    string message = "";
+
+    void HandleClick()
+    {
+        message = "Link clicked, but navigation prevented.";
+    }
+}

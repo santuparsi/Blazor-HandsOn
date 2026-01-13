@@ -1,0 +1,19 @@
+﻿<div @onclick="ParentClicked"
+     style="padding:20px; border:2px solid black">
+
+    <button @onclick="ChildClicked">
+        Child Button
+    </button>
+</div>
+
+@code {
+    void ParentClicked()
+    {
+        Console.WriteLine("Parent clicked");
+    }
+
+    void ChildClicked()
+    {
+        Console.WriteLine("Child clicked");
+    }
+}

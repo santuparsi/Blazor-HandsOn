@@ -1,0 +1,11 @@
+﻿<input @oninput="OnTyping" />
+<p>@text</p>
+
+@code {
+    string text = "";
+
+    void OnTyping(ChangeEventArgs e)
+    {
+        text = e.Value?.ToString();
+    }
+}

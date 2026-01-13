@@ -1,0 +1,15 @@
+﻿<button @onclick="Approve">Approve</button>
+
+@code {
+    string Status = "Pending";
+
+    void UpdateStatus(string newStatus)
+    {
+        Status = newStatus;
+    }
+
+    void Approve()
+    {
+        UpdateStatus(Status);
+    }
+}

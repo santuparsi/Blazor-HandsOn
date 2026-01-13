@@ -1,0 +1,10 @@
+﻿<p>@State.Message</p>
+
+@inject AppState State
+
+@code {
+    protected override void OnInitialized()
+    {
+        State.OnChange += StateHasChanged;
+    }
+}

@@ -1,0 +1,20 @@
+﻿<div class="card" @onclick="OpenDetails">
+    <h4>Order #123</h4>
+
+    <button @onclick="Delete"
+            @onclick:stopPropagation>
+        Delete
+    </button>
+</div>
+
+@code {
+    void OpenDetails()
+    {
+        Console.WriteLine("Opening details...");
+    }
+
+    void Delete()
+    {
+        Console.WriteLine("Deleting...");
+    }
+}

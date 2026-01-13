@@ -1,7 +1,8 @@
 ﻿@page "/counter"
-@rendermode InteractiveServer   
-<h3>Visito Counter</h3>
+@rendermode InteractiveServer
+<h3>Counter Demo</h3>
 <p>Count:@count</p>
+<button class="btn btn-primary" @onclick="() => count += 5">Increment By 5</button>
 <button class="btn btn-primary" @onclick="Increment">Increment</button>
 <button class="btn btn-secondary" @onclick="Decrement">Decrement</button>
 

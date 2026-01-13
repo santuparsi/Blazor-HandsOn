@@ -1,0 +1,10 @@
+﻿<button @onclick="Send">Send</button>
+
+@inject AppState State
+
+@code {
+    void Send()
+    {
+        State.SetMessage("Hello from Sender");
+    }
+}

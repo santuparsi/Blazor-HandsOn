@@ -1,0 +1,8 @@
+﻿<input @onchange="HandleChange" />
+
+@code {
+    void HandleChange(ChangeEventArgs e)
+    {
+        Console.WriteLine($"New value: {e.Value}");
+    }
+}
