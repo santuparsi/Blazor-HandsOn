@@ -1,0 +1,26 @@
+﻿<p>Status: @status</p>
+
+@code {
+    string status = "Waiting";
+    //component is not aware of the change made in the background thread
+    // protected override void OnInitialized()
+    // {
+    //     Task.Run(async () =>
+    //     {
+    //         await Task.Delay(2000);
+    //         status = "Updated in background";
+           
+    //     });
+    // }
+    // To notify the component of the change, we use InvokeAsync to schedule a call 
+    // to StateHasChanged on the main UI thread.
+    protected override void OnInitialized()
+    {
+        Task.Run(async () =>
+        {
+            await Task.Delay(2000);
+            status = "Updated in background";
+            await InvokeAsync(StateHasChanged);
+        });
+    }
+}

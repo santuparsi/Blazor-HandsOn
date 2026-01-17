@@ -1,0 +1,27 @@
+﻿@inject AppState State
+@implements IDisposable
+
+<h3>Product Management</h3>
+
+<ProductForm />
+<ProductList />
+
+@code {
+    protected override void OnInitialized()
+    {
+        State.OnChange += Refresh;
+        State.Load();
+    }
+
+    void Refresh()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    // IDisposable implementation to clean up event subscription
+    //WHY: To prevent memory leaks by unsubscribing from the event when the component is disposed.
+    public void Dispose()
+    {
+        State.OnChange -= Refresh;
+    }
+}

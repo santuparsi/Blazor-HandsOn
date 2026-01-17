@@ -1,0 +1,11 @@
+﻿<Child6 @ref="child" />
+<button @onclick="CallChild">Call Child</button>
+
+@code {
+    Child6 child;
+
+    void CallChild()
+    {
+        child.ShowMessage();
+    }
+}

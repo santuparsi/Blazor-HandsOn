@@ -1,0 +1,24 @@
+﻿<h3>ConfirmationDialogHost</h3>
+@if (componentType != null)
+{
+    <DynamicComponent Type="@componentType"
+                      Parameters="@parameters" />
+}
+
+@code {
+    Type? componentType;
+    Dictionary<string, object>? parameters;
+    protected override void OnInitialized()
+    {
+        componentType = typeof(ConfirmationDialog);
+        parameters = new()
+        {
+            ["OnConfirmed"] = EventCallback.Factory.Create(this, HandleConfirm)
+        };
+    }
+    void HandleConfirm()
+    {
+        Console.WriteLine("Confirmed from ConfirmationDialogHost");
+    }
+
+}

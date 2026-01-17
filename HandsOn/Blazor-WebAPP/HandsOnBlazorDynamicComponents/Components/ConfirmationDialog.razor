@@ -1,0 +1,13 @@
+﻿<button @onclick="Confirm">Confirm</button>
+
+@code {
+   [Parameter] public EventCallback OnConfirmed { get; set; }
+
+    async Task Confirm()
+    {
+        //Invoke Parent Callback
+        
+        await OnConfirmed.InvokeAsync();// Invoke the callback when confirmed
+        
+    }
+}

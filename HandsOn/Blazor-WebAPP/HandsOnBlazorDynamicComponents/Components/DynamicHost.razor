@@ -1,0 +1,16 @@
+﻿<button @onclick="() => LoadComponent(typeof(ComA))">Load A</button>
+<button @onclick="() => LoadComponent(typeof(ComB))">Load B</button>
+@if (currentComponent != null)
+{
+    <DynamicComponent Type="@currentComponent"/>
+}
+@* <DynamicComponent Type="@currentComponent" />  *@
+
+@code {
+    Type? currentComponent;
+
+    void LoadComponent(Type componentType)
+    {
+        currentComponent = componentType;
+    }
+}

@@ -1,0 +1,17 @@
+﻿<h3>User Profile</h3>
+<div class="container">
+    @if (Params != null)
+    {
+    <pre>
+        @* Displaying User Profile Information *@
+        Name: @Params["Name"]
+        Email: @Params["Email"]
+        Age: @Params["Age"]
+    </pre>
+    }
+</div>
+
+@code {
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? Params { get; set; }
+}

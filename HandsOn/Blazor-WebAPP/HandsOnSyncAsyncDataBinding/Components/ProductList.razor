@@ -16,7 +16,12 @@ else
 
 @code {
     List<string>? products;
-
+    // Simulate fetching data from an API
+    // using OnInitializedAsync lifecycle method
+    //when OnInitializedAsync is used, the component will render once with the loading state, 
+    // and then re-render once the data is fetched.
+    // This is useful for scenarios where data needs to be loaded asynchronously.
+    //
     protected override async Task OnInitializedAsync()
     {
         await Task.Delay(2000); // Simulate API call

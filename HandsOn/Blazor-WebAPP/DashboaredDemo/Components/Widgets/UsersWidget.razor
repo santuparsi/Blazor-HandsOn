@@ -1,0 +1,20 @@
+﻿@implements DashboaredDemo.Contracts.IWidget
+
+<h4>@Title</h4>
+<p>Active Users: @_users</p>
+<button @onclick="NotifyDashboard">Notify Dashboard</button>
+@code {
+    private int _users = 50;
+
+    [Parameter] public string Title { get; set; } = "Users Widget";
+    [Parameter] public EventCallback<string> OnWidgetAction { get; set; }
+    public void Refresh()
+    {
+        _users += 10;
+        StateHasChanged();
+    }
+    async Task NotifyDashboard()
+    {
+        await OnWidgetAction.InvokeAsync($"Users reached {_users}");
+    }
+}

@@ -1,0 +1,9 @@
+﻿<input @attributes="AdditionalAttributes" value="Hello Virat" />
+
+@code {
+    // This parameter will capture all unmatched attributes
+    //example: placeholder, class, style, etc.
+    //
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+}

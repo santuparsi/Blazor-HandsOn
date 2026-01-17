@@ -1,0 +1,17 @@
+﻿<button class="btn btn-success" @onclick="Approve">Approve</button>
+<button class="btn btn-danger" @onclick="Reject">Reject</button>
+
+@code {
+    [Parameter]
+    public EventCallback<string> OnAction { get; set; }
+
+    async Task Approve()
+    {
+        await OnAction.InvokeAsync("Approved");
+    }
+
+    async Task Reject()
+    {
+        await OnAction.InvokeAsync("Rejected");
+    }
+}

@@ -1,0 +1,19 @@
+﻿@page "/"
+@rendermode InteractiveServer
+@* <DynamicHost /> *@
+@* <Parent /> *@
+@* <ConfirmationParent /> *@
+@* <ApproveRajectHost /> *@
+@* <ConfirmationDialogHost /> *@
+@* <CatchAll AdditionalAttributes="AdditionalAttributes" />
+@code {
+    Dictionary<string, object> AdditionalAttributes = new Dictionary<string, object>
+    {
+        { "placeholder", "Enter text..." },
+        { "class", "form-control" },
+        { "style", "width:300px;" },
+        {"value","Hello Sachin"} //not captured as it is explicitly defined in CatchAll component
+    };
+} *@
+@* <UserProfileHost /> *@
+<DashboardWidgetHost />

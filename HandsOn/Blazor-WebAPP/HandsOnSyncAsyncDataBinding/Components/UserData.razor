@@ -1,0 +1,26 @@
+﻿<button @onclick="LoadData">Load Users</button>
+
+@if (users == null)
+{
+    <p>No data loaded</p>
+}
+else
+{
+    <ul>
+        @foreach (var user in users)
+        {
+            <li>@user</li>
+        }
+    </ul>
+}
+
+@code {
+    //allow nullable reference types
+    List<string>? users;
+
+    async Task LoadData()
+    {
+        await Task.Delay(1500); // API call
+        users = new() { "Admin", "Manager", "User" };
+    }
+}

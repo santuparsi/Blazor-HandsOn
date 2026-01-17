@@ -1,0 +1,20 @@
+﻿<label>Status Filter</label>
+
+<select class="form-control"
+        @onchange="OnStatusChanged">
+    <option value="">All</option>
+    <option>Pending</option>
+    <option>Approved</option>
+    <option>Rejected</option>
+</select>
+
+@code {
+    [Parameter]
+    public EventCallback<string> OnFilterChanged { get; set; }
+
+    async Task OnStatusChanged(ChangeEventArgs e)
+    {
+        var selectedStatus = e.Value?.ToString();
+        await OnFilterChanged.InvokeAsync(selectedStatus);
+    }
+}

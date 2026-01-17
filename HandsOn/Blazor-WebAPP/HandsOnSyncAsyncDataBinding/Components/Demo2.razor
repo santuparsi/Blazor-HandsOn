@@ -1,0 +1,18 @@
+﻿@* @bind with @bind:after *@
+<input @bind="SearchText"
+       @bind:event="oninput"
+       @bind:after="SearchAsync" />
+
+@code {
+    string SearchText = "";
+
+    async Task SearchAsync()
+    {
+        await Task.Delay(500); // API call
+    }
+}
+@* This is the only safe async-compatible way with @bind.
+In Blazor, @bind already attaches an event handler internally.
+Attaching another handler to the same event causes a conflict.
+Async logic should be placed in a separate handler or @bind:after.
+*@

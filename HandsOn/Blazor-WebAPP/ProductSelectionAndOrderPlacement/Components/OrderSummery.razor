@@ -1,0 +1,15 @@
+﻿@using ProductSelectionAndOrderPlacement.Models
+
+<div class="card mt-3">
+    <div class="card-body">
+        <h5>Order Summary</h5>
+        <p>Product Id: @Order.ProductId</p>
+        <p>Quantity: @Order.Quantity</p>
+        <p><strong>Total: ₹@Order.TotalAmount</strong></p>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Order Order { get; set; } = new();
+}

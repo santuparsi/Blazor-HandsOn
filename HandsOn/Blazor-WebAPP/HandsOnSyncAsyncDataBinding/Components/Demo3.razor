@@ -1,0 +1,26 @@
+﻿@* Button Click (Auto Re-render) *@
+<button @onclick="LoadData">Load Data</button>
+
+<p>@message</p>
+
+@code {
+    string message = "Idle";
+
+    async Task LoadData()
+    {
+        message = "Loading...";
+        await Task.Delay(2000);   // API call
+        message = "Completed";
+        // StateHasChanged(); //not needed
+    }
+    // async void LoadData()
+    // {
+    //     message = "Loading...";
+    //     await Task.Delay(2000);   // API call
+    //     message = "Completed";
+    //     StateHasChanged(); // needed //Force immediate re-render
+    // }
+}
+@* Async Event Handler (No StateHasChanged Needed)
+
+*@

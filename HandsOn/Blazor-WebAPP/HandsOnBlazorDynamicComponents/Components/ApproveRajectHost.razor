@@ -1,0 +1,29 @@
+﻿<h3>ApproveRajectHost</h3>
+@if(componentType!=null)
+{
+
+    <DynamicComponent Type="@componentType"
+                      Parameters="@parameters" />
+}
+<p>@status</p>
+@code {
+    Type componentType = typeof(ApproveRejectComponent);
+    string status = "Pending";
+    Dictionary<string, object> parameters;
+    protected override void OnInitialized()
+    {
+        parameters = new Dictionary<string, object>
+        {
+            {
+                "OnAction",
+                EventCallback.Factory.Create<string>(
+                    this,
+                    HandleAction)
+            }
+        };
+    }
+    void HandleAction(string result)
+    {
+        status = result;
+    }
+}

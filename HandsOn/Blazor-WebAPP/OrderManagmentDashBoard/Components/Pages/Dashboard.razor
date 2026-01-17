@@ -1,0 +1,56 @@
+﻿@page "/dashboard"
+@using OrderManagmentDashBoard.Models
+
+<h3>Order Management Dashboard</h3>
+
+<OrderFilter OnFilterChanged="ApplyFilter" />
+
+<div class="row">
+    <div class="col-6">
+        <OrderList Orders="FilteredOrders"
+                   OnOrderSelected="SelectOrder" />
+    </div>
+
+    <div class="col-6">
+        @if (SelectedOrder != null)
+        {
+            <OrderDetails Order="SelectedOrder"
+                          OnStatusUpdated="UpdateStatus" />
+        }
+        else
+        {
+            <p>Select an order to view details.</p>
+        }
+    </div>
+</div>
+@code
+{
+    List<Order> Orders = new()
+    {
+        new() { Id = 1, CustomerName = "Amit", Status = "Pending", Amount = 5000 },
+        new() { Id = 2, CustomerName = "Neha", Status = "Approved", Amount = 12000 }
+    };
+    List<Order> FilteredOrders;
+    Order SelectedOrder;
+    protected override void OnInitialized()
+    {
+        FilteredOrders = Orders;
+    }
+    void ApplyFilter(string status)
+    {
+        FilteredOrders = string.IsNullOrEmpty(status)
+            ? Orders
+            : Orders.Where(o => o.Status == status).ToList();
+        StateHasChanged();
+    }
+    void SelectOrder(Order order)
+    {
+        SelectedOrder = order;
+    }
+
+    void UpdateStatus(Order updatedOrder)
+    {
+        SelectedOrder.Status = updatedOrder.Status;
+        StateHasChanged();
+    }
+}

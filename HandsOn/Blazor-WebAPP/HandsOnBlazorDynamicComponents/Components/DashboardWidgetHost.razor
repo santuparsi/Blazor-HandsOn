@@ -1,0 +1,22 @@
+﻿<button @onclick="LoadWidget">Load Widget</button>
+<button @onclick="RefreshFromParent">Refresh from Parent</button>
+
+@if (componentType != null)
+{
+    <DynamicComponent Type="@componentType"
+                      @ref="dynamicComponentRef" />
+}
+
+@code {
+    Type? componentType;
+    DynamicComponent? dynamicComponentRef;
+    void LoadWidget()
+    {
+        componentType = typeof(DashboardWidget);
+    }
+    void RefreshFromParent()
+    {
+        var instance = dynamicComponentRef?.Instance as DashboardWidget;
+        instance?.Refresh();
+    }
+}

@@ -1,0 +1,48 @@
+﻿@page "/place-order"
+@using ProductSelectionAndOrderPlacement.Models
+@using ProductSelectionAndOrderPlacement.Services
+@inject IProductService ProductService
+<h3>Place Order</h3>
+
+<ProductSelector SelectedProductId="order.ProductId"
+                 SelectedProductIdChanged="OnProductChanged" />
+
+<br />
+
+<QuantityEditor Quantity="order.Quantity" QuantityChanged="OnQuantityChanged" />
+<OrderSummery Order="order" />
+
+
+@code {
+    private Order order = new();
+    private Product? selectedProduct;
+
+    private async Task OnProductChanged(int productId)
+    {
+        order.ProductId = productId;
+        selectedProduct = (await ProductService.GetProductsAsync())
+                            .First(p => p.Id == productId);
+
+        await CalculateTotalAsync();
+    }
+
+   
+    private async Task OnQuantityChanged(int value)
+    {
+        order.Quantity = value;
+        await CalculateTotalAsync();
+        await InvokeAsync(StateHasChanged);
+        Console.WriteLine(order.Quantity);
+    }
+    private async Task CalculateTotalAsync()
+    {
+        if (selectedProduct == null)
+            return;
+
+        await Task.Delay(200); // simulate pricing API
+        order.TotalAmount = order.Quantity * selectedProduct.Price;
+
+        await InvokeAsync(StateHasChanged); // refresh UI
+    }
+}
+

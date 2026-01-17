@@ -1,0 +1,43 @@
+﻿<button @onclick="LoadData" disabled="@isLoading">
+    @(isLoading ? "Loading..." : "Load Data")
+</button>
+
+<p>@status</p>
+
+@code {
+    bool isLoading;
+    string status = "Idle";
+
+    // async Task LoadData()
+    // {
+    //     isLoading = true;
+    //     status = "Loading...";
+
+    //     await Task.Delay(5000);   // API call
+
+    //     status = "Completed";
+    //     isLoading = false;
+    // }
+    //Handling Exceptions in Long-Running Events
+    async Task LoadData()
+    {
+        try
+        {
+            isLoading = true;
+            status = "Loading...";
+
+            await Task.Delay(5000);   // API call
+
+            status = "Completed";
+
+        }
+        catch (Exception ex)
+        {
+
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}

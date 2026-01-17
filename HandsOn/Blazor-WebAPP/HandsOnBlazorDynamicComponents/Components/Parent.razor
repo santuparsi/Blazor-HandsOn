@@ -1,0 +1,20 @@
+﻿<button @onclick="LoadUserComponent">Load User</button>
+@if (componentType != null)
+{
+    <DynamicComponent Type="@componentType" Parameters="@parameters" />
+}
+
+@code {
+    Type? componentType;
+    Dictionary<string, object>? parameters;
+
+    void LoadUserComponent()
+    {
+        componentType = typeof(UserDetails);
+        parameters = new()
+        {
+            ["Name"] = "Ravi",
+            ["Role"] = "Admin"
+        };
+    }
+}

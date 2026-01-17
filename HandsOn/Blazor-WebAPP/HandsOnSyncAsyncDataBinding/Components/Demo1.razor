@@ -1,0 +1,19 @@
+﻿@* Manual Binding + Async Event (Recommended) *@
+<input value="@SearchText" @oninput="OnInputChanged" />
+
+@code {
+    string SearchText = "";
+
+    async Task OnInputChanged(ChangeEventArgs e)
+    {
+        SearchText = e.Value?.ToString() ?? "";
+
+        await Task.Delay(500); // API call
+        await SearchAsync(SearchText);
+    }
+
+    async Task SearchAsync(string text)
+    {
+        // Call API
+    }
+}

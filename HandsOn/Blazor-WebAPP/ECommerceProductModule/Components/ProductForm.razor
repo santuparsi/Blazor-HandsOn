@@ -1,0 +1,75 @@
+﻿@inject AppState State
+@implements IDisposable
+
+<h4>@(State.SelectedProduct == null ? "Add Product" : "Edit Product")</h4>
+
+<input class="form-control mb-2"
+       placeholder="Name"
+       @bind="product.Name" />
+
+<input class="form-control mb-2"
+       type="number"
+       placeholder="Price"
+       @bind="product.Price" />
+
+<button class="btn btn-primary" @onclick="Save">
+    Save
+</button>
+
+@code {
+    Product product = new();
+
+    protected override void OnInitialized()
+    {
+        State.OnChange += SyncForm;// Subscribe to state changes
+    }
+
+    void SyncForm()
+    {
+        if (State.SelectedProduct == null)
+        {
+            product = new Product();
+        }
+        else
+        {
+            product = new Product
+            {
+                Id = State.SelectedProduct.Id,
+                Name = State.SelectedProduct.Name,
+                Price = State.SelectedProduct.Price
+            };
+        }
+
+        // ✅ FORCE UI REFRESH
+        InvokeAsync(StateHasChanged);
+    }
+
+    void Save()
+    {
+        if (product.Id == 0)
+        {
+            State.Add(product);
+        }
+        else
+        {
+            State.Update(product);
+        }
+
+        // Reset after save
+        State.ClearSelection();
+    }
+
+    public void Dispose()
+    {
+        State.OnChange -= SyncForm;
+    }
+}
+
+
+@* Key Concepts Demonstrated
+
+Two-way binding inside component
+
+State-driven UI update
+
+No direct reference to ProductList *@

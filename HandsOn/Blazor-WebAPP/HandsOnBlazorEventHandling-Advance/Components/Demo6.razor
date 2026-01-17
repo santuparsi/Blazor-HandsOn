@@ -1,0 +1,14 @@
+﻿@* Naive Implementation (Bad UX) *@
+@* Long-Running Event Example *@
+<button @onclick="LoadData">Load Data</button>
+<p>@status</p>
+
+@code {
+    string status = "Idle";
+
+    async Task LoadData()
+    {
+        await Task.Delay(5000);   // Simulate API
+        status = "Completed";
+    }
+}
