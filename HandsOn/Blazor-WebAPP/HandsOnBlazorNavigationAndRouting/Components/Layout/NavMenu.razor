@@ -1,0 +1,93 @@
+﻿@using HandsOnBlazorNavigationAndRouting.Services
+@inject AppState AppState
+@implements IDisposable
+@inject NavigationManager nav;
+@* <div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">Sample App</a>
+    </div>
+</div>
+
+<input type="checkbox" title="Navigation menu" class="navbar-toggler" /> *@
+@* 
+<div class="nav-scrollable">
+    <nav class="nav flex-column">
+
+        @{
+            if (AppState.Role == "Admin" && AppState.IsLoggedIn)
+            {
+                <NavLink class="nav-link" href="getall">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> GetAll
+                </NavLink>
+                <button class="nav-link btn btn-link text-start"
+                        @onclick="LogOut"
+                        @onclick:stopPropagation>
+                    LogOut
+                </button>
+            }
+            else if (AppState.Role == "User" && AppState.IsLoggedIn)
+            {
+                <NavLink class="nav-link" href="user-details/U0001">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> UserDetails
+                </NavLink>
+                <button class="nav-link btn btn-link text-start"
+                        @onclick="LogOut"
+                        @onclick:stopPropagation>
+                    LogOut
+                </button>
+            }
+            else
+            {
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                        <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+                    </NavLink>
+                </div>
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="about">
+                        <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> About
+                    </NavLink>
+                </div>
+
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="contact">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Contact
+                    </NavLink>
+                </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="signup">
+                        <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Register
+                    </NavLink>
+                </div>
+            }
+        }
+
+    </nav>
+</div> *@
+<p>@message</p>
+<button class="btn"
+        @onclick="LogOut"
+        >
+    LogOut
+</button>
+@code {
+    private string message;
+    protected override void OnInitialized()
+    {
+        AppState.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        AppState.OnChange -= StateHasChanged;
+    }
+    private void LogOut()
+    {
+        message = "LogOut";
+        AppState.Logout();
+        nav.NavigateTo("/login");
+    }
+
+}
+

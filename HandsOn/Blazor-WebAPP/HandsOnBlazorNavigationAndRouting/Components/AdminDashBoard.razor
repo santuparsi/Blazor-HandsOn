@@ -1,0 +1,10 @@
+﻿@page "/admin-dashboard/{userName}"
+@inject NavigationManager nav
+@rendermode InteractiveServer
+<h2>Welcome to Admin DashBoard!!!</h2>
+<h3>Hello, @userName</h3>
+<button @onclick='() => nav.NavigateTo("/login")'>LogOut</button>
+
+@code {
+    [Parameter] public string userName { get; set; }
+}

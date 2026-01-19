@@ -1,0 +1,78 @@
+﻿@page "/login"
+@using HandsOnBlazorNavigationAndRouting.Models
+@using HandsOnBlazorNavigationAndRouting.Services
+@inject HandsOnBlazorNavigationAndRouting.Services.IUserService _userService
+@inject NavigationManager Nav
+@inject AppState AppState
+@rendermode InteractiveServer
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="col-md-5 col-lg-4">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h3 class="text-center mb-4">Sign In</h3>
+
+                <EditForm Model="@login" OnValidSubmit="HandleLogin">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <InputText class="form-control"
+                                   @bind-Value="login.Email"
+                                   placeholder="Enter username" />
+                        <ValidationMessage For="@(() => login.Email)" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <InputText class="form-control"
+                                   type="password"
+                                   @bind-Value="login.Password"
+                                   placeholder="Enter password" />
+                        <ValidationMessage For="@(() => login.Password)" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">@errMsg</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        Login
+                    </button>
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private LoginModel login = new LoginModel();
+
+    private string errMsg = string.Empty;
+
+    private void HandleLogin()
+    {
+        var user = new User();
+        user = _userService.Validate(login.Email, login.Password);
+        if(user!=null)
+        {
+            var userName = user.Username;
+            AppState.Login(user.Role); 
+            if(user.Role=="User")
+            {
+               Nav.NavigateTo("/user-dashboard/"+userName);
+            }
+            else if(user.Role=="Admin")
+            {
+                Nav.NavigateTo("/admin-dashboard/"+userName);
+            }
+        }
+        else
+        {
+            errMsg = "Invalid Login Credentials";
+        }
+    }
+
+    
+
+}

@@ -1,0 +1,56 @@
+﻿@page "/getall"
+@using HandsOnBlazorNavigationAndRouting.Models
+@using HandsOnBlazorNavigationAndRouting.Services
+@inject IUserService UserService
+
+<h3 class="mb-4">All Users</h3>
+
+@if (users == null)
+{
+    <p class="text-muted">Loading users...</p>
+}
+else if (!users.Any())
+{
+    <div class="alert alert-warning">
+        No users found.
+    </div>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead class="table-light">
+            <tr>
+                <th>User Id</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in users)
+            {
+                <tr>
+                    <td>@user.UserId</td>
+                    <td>@user.Username</td>
+                    <td>@user.Email</td>
+                    <td>
+                        <span class="badge bg-secondary">
+                            @user.Role
+                        </span>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+
+    private List<User> users = new();
+
+    protected override void OnInitialized()
+    {
+        users = UserService.GetAllUsers();
+    }
+
+}

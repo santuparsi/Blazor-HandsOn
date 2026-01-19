@@ -1,0 +1,21 @@
+﻿<EditForm Model="@employee" >
+    <label>Name</label>
+    <InputText @bind-Value="employee.Name" />
+
+    <label>Email</label>
+    <InputText @bind-Value="employee.Email" />
+
+    <label>Age</label>
+    <InputNumber @bind-Value="employee.Age" />
+
+    <button type="submit">Save</button>
+</EditForm>
+
+<p>
+    Preview: @employee.Name | @employee.Email | @employee.Age
+</p>
+
+@code {
+    private Employee employee = new();
+
+}

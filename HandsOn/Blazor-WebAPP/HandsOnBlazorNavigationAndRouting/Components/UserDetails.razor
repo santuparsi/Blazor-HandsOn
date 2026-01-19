@@ -1,0 +1,51 @@
+﻿@page "/user-details/{userId}"
+@using HandsOnBlazorNavigationAndRouting.Models
+@using HandsOnBlazorNavigationAndRouting.Services
+@inject IUserService UserService
+
+<h3 class="mb-4">User Details</h3>
+
+@if (user == null)
+{
+    <div class="alert alert-warning">
+        User not found.
+    </div>
+}
+else
+{
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">User Id</dt>
+                <dd class="col-sm-9">@user.UserId</dd>
+
+                <dt class="col-sm-3">Username</dt>
+                <dd class="col-sm-9">@user.Username</dd>
+
+                <dt class="col-sm-3">Email</dt>
+                <dd class="col-sm-9">@user.Email</dd>
+
+                <dt class="col-sm-3">Role</dt>
+                <dd class="col-sm-9">
+                    <span class="badge bg-info">
+                        @user.Role
+                    </span>
+                </dd>
+            </dl>
+        </div>
+    </div>
+}
+
+@code {
+
+    [Parameter]
+    public string userId { get; set; }
+
+    private User? user;
+
+    protected override void OnParametersSet()
+    {
+        user = UserService.GetUser(userId);
+    }
+
+}

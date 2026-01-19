@@ -1,0 +1,69 @@
+﻿@page "/signup"
+@using HandsOnBlazorNavigationAndRouting.Models
+@inject HandsOnBlazorNavigationAndRouting.Services.IUserService _userService;
+@inject NavigationManager Nav;
+@rendermode InteractiveServer
+<div class="container d-flex justify-content-center align-items-center min-vh-100">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+                <h3 class="text-center mb-4">Create Account</h3>
+
+                <EditForm Model="@user" OnValidSubmit="HandleSignUp">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <div class="mb-3">
+                        <label class="form-label">Username</label>
+                        <InputText class="form-control"
+                                   @bind-Value="user.Username"
+                                   placeholder="Enter username" />
+                        <ValidationMessage For="@(() => user.Username)" />
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <InputText class="form-control"
+                                   @bind-Value="user.Email"
+                                   placeholder="Enter email" />
+                        <ValidationMessage For="@(() => user.Email)" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Password</label>
+                        <InputText class="form-control"
+                                   type="password"
+                                   @bind-Value="user.Password"
+                                   placeholder="Enter password" />
+                        <ValidationMessage For="@(() => user.Password)" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100">
+                        Sign Up
+                    </button>
+                </EditForm>
+
+                <hr class="my-4" />
+
+                <p class="text-center text-muted small mb-0">
+                    Already have an account?
+                    <a href="/login" class="text-decoration-none">
+                        Login
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    private User user = new User();
+
+    private void HandleSignUp()
+    {
+        user.Role = "User";
+        _userService.SignUp(user);
+        Nav.NavigateTo("/login");
+    }
+
+}
