@@ -1,0 +1,15 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+
+@attribute [Authorize]
+<h3>User Dashboard</h3>
+@inject AuthenticationStateProvider AuthStateProvider
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        var state = await AuthStateProvider.GetAuthenticationStateAsync();
+        Console.WriteLine($"IsAuthenticated: {state.User.Identity?.IsAuthenticated}");
+    }
+}

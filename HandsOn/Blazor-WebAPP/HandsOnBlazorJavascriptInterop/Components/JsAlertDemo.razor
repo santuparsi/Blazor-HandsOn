@@ -1,0 +1,29 @@
+﻿@page "/js-alert"
+@inject IJSRuntime JS
+
+<h3>.NET → JavaScript Interop (Alert)</h3>
+
+<button class="btn btn-primary" @onclick="ShowAlert">
+    Show Alert
+</button>
+
+@code {
+    private async Task ShowAlert()
+    {
+        //Calling JavaScript from .NET
+        await JS.InvokeVoidAsync(
+            "alert",
+            "Hello from Blazor (.NET 10)"
+        );
+    }
+}
+How This Works (Line by Line)
+1. Injecting IJSRuntime
+IJSRuntime is the interop gateway
+
+It allows Blazor to execute JavaScript in the browser
+2. User Action Triggers JS Call(Clicking Button)
+JS interop is triggered only after rendering
+
+Avoid calling JS during initialization or prerendering
+3. Calling JavaScript from .NET

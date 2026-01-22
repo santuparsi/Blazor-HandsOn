@@ -1,0 +1,33 @@
+﻿@page "/chart-isolated"
+@inject IJSRuntime JS
+
+<h3>Chart.js – JS Isolation (WORKING)</h3>
+
+<canvas @ref="canvas"
+        width="600"
+        height="300"
+        style="border:1px solid red;">
+</canvas>
+
+@code {
+    private ElementReference canvas;
+    private IJSObjectReference? module;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        module = await JS.InvokeAsync<IJSObjectReference>(
+            "import",
+            "/js/chart-isolated.js"   // ✅ ABSOLUTE PATH
+        );
+
+        await module.InvokeVoidAsync(
+            "createBarChart",
+            canvas,
+            new[] { "Jan", "Feb", "Mar", "Apr" },
+            new[] { 10, 25, 15, 30 }
+        );
+    }
+}

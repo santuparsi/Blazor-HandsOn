@@ -1,0 +1,14 @@
+﻿@page "/search"
+@inject NavigationManager Nav
+
+<h3>Search</h3>
+<p>Term: @Term</p>
+<p>Page: @Page</p>
+
+@code {
+    [Parameter, SupplyParameterFromQuery]
+    public string? Term { get; set; }
+
+    [Parameter, SupplyParameterFromQuery]
+    public int Page { get; set; } = 1;
+}

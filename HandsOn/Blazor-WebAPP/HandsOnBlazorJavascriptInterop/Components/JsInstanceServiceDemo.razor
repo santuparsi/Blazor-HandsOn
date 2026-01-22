@@ -1,0 +1,58 @@
+﻿@page "/js-instance-service"
+@using HandsOnBlazorJavascriptInterop.Interop
+@inject IJSRuntime JS
+@inject JsInstanceCallbackService CallbackService
+@implements IDisposable
+@rendermode InteractiveServer
+<h3>JS → .NET (Instance Service Callback)</h3>
+
+<button class="btn btn-primary" @onclick="Register">
+    Register Instance Service
+</button>
+<button class="btn btn-success" @onclick="CallAdd">
+    Call Add (JS → .NET)
+</button>
+
+<p>Result: @result</p>
+
+<p class="mt-3">
+    <strong>Message:</strong> @message
+</p>
+
+@code {
+    private string message = "Waiting...";
+    private int result;
+    private DotNetObjectReference<JsInstanceCallbackService>? _objRef;
+
+    protected override void OnInitialized()
+    {
+        CallbackService.OnMessageReceived += HandleMessage;
+    }
+
+    private async Task Register()
+    {
+        _objRef = DotNetObjectReference.Create(CallbackService);
+        await JS.InvokeVoidAsync("registerInstanceService", _objRef);
+    }
+    private async Task CallAdd()
+    {
+        _objRef ??= DotNetObjectReference.Create(CallbackService);
+
+        result = await JS.InvokeAsync<int>(
+            "callAddInstance",
+            _objRef
+        );
+    }
+
+    private void HandleMessage(string msg)
+    {
+        message = msg;
+        InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        CallbackService.OnMessageReceived -= HandleMessage;
+        _objRef?.Dispose();
+    }
+}

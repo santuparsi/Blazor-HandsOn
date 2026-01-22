@@ -1,0 +1,27 @@
+﻿@page "/js-custom"
+@inject IJSRuntime JS
+
+<h3>Calling Custom JavaScript</h3>
+
+<button class="btn btn-success" @onclick="CallJs">
+    Call JS Function
+</button>
+<button class="btn btn-success" @onclick="CallJsAdd">
+   Add
+</button>
+<p>@result</p>
+
+@code {
+    private int result;
+    private async Task CallJs()
+    {
+        await JS.InvokeVoidAsync(
+            "showMessage",
+            "Called from Razor Component"
+        );
+    }
+    private async Task CallJsAdd()
+    {
+         result = await JS.InvokeAsync<int>("add", 3, 5);
+    }
+}

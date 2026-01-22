@@ -27,13 +27,3 @@
     [Parameter] public EventCallback<Order> OnOrderSelected { get; set; }
 }
 
-@* @code {
-    [Parameter] public List<Order> Orders { get; set; } = new();
-    [Parameter] public EventCallback OnStatusChanged { get; set; }
-
-    void HandleReject(Order order)
-    {
-        OrderService.UpdateStatus(order, "Rejected");
-    }
-}
- *@

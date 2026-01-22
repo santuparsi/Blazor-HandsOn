@@ -1,0 +1,28 @@
+﻿@page "/chart-demo"
+@inject IJSRuntime JS
+
+<h3>Chart.js Bar Chart</h3>
+
+<canvas id="salesChart"
+        width="600"
+        height="300"
+        style="border:1px solid red;">
+</canvas>
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender)
+            return;
+
+        string[] labels = { "Jan", "Feb", "Mar", "Apr" };
+        int[] values = { 10, 25, 15, 30 };
+
+        await JS.InvokeVoidAsync(
+            "createBarChart",
+            "salesChart",
+            labels,
+            values
+        );
+    }
+}

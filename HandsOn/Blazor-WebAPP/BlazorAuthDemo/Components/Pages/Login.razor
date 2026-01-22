@@ -1,0 +1,47 @@
+﻿@page "/login"
+@inject IHttpClientFactory ClientFactory
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+<EditForm Model="model" OnValidSubmit="Validate">
+    <InputText @bind-Value="model.Email" />
+    <InputText @bind-Value="model.Password" type="password" />
+    <button>Login</button>
+</EditForm>
+<p>@errorMsg</p>
+
+@code {
+    string errorMsg = "";
+    LoginModel model = new();
+    string returnUrl = "/";
+    protected override void OnInitialized()
+    {
+        var uri = Nav.ToAbsoluteUri(Nav.Uri);
+        var query = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(uri.Query);
+
+        if (query.TryGetValue("ReturnUrl", out var url))
+        {
+            returnUrl = url!;
+        }
+    }
+    async Task Validate()
+    {
+        var client = ClientFactory.CreateClient("ServerAPI");
+
+        var response = await client.PostAsJsonAsync("/api/login", model);
+
+        if (response.IsSuccessStatusCode)
+        {
+            Nav.NavigateTo("/", true);
+        }
+        else
+        {
+            errorMsg = "Invalid Credentials";
+        }
+    }
+
+    class LoginModel
+    {
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
+}

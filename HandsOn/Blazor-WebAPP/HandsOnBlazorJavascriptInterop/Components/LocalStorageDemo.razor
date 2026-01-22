@@ -1,0 +1,51 @@
+﻿@page "/local-storage"
+@* Inject the JavaScript runtime service *@
+@inject IJSRuntime JS 
+@rendermode InteractiveServer
+<h3>JavaScript Isolation – localStorage</h3>
+<input class="form-control mb-2"
+       @bind="userName"
+       placeholder="Enter name" />
+<button class="btn btn-primary me-2" @onclick="Save">
+    Save
+</button>
+<button class="btn btn-secondary" @onclick="Load">
+    Load
+</button>
+<button class="btn btn-secondary" @onclick="Clear">
+    Clear
+</button>
+<p class="mt-3">
+    <strong>Stored Value:</strong> @storedValue
+</p>
+@code {
+    private string userName = string.Empty;
+    private string? storedValue;
+    private IJSObjectReference? _module; // Reference to the JavaScript module
+    //Load the JavaScript module on first render
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _module = await JS.InvokeAsync<IJSObjectReference>(
+                "import",
+                "./Components/LocalStorageDemo.razor.js"
+            );
+        }
+    }
+    private async Task Save()
+    {
+        await _module!.InvokeVoidAsync("setItem", "username", userName);
+    }
+    private async Task Load()
+    {
+        storedValue = await _module!.InvokeAsync<string>(
+            "getItem",
+            "username"
+        );
+    }
+    private async Task Clear()
+    {
+        await _module!.InvokeVoidAsync("clear");
+    }
+}

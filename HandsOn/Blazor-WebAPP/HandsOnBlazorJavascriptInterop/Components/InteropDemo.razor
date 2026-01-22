@@ -1,0 +1,48 @@
+﻿@inject IJSRuntime JS // Inject the JavaScript runtime service
+<h3>InteropDemo</h3>
+<button @onclick="Show">Show Isolated JS</button>
+@code {
+    private IJSObjectReference? _module;// Reference to the JavaScript module
+    // Method to call the JavaScript function
+    //OnAfterRenderAsync is called after the component has been rendered.
+    // It is a lifecycle method in Blazor components.
+    // The firstRender parameter indicates if this is the first time the component is being rendered.
+    // If it is the first render, we load the JavaScript module
+   
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Load the JavaScript module on first render
+            _module = await JS.InvokeAsync<IJSObjectReference>(
+                "import", "./Components/InteropDemo.razor.js");
+        }
+    }
+    // Method to show a message using the JavaScript function
+    async Task Show()
+    {
+        await _module!.InvokeVoidAsync("showMessage", "Hello Isolated JS");
+    }
+}
+@* Add notes above the code if necessary *@
+@* Notes for InteropDemo.razor
+1.	Purpose
+•	Demonstrates isolated JavaScript module interop from a Blazor component using import and ES module calls.
+2.	Services & injections
+•	@inject IJSRuntime JS — injects the Blazor JavaScript runtime used to load and call JS modules.
+3.	UI
+•	<h3>InteropDemo</h3> — component title.
+•	<button @onclick="Show">Show Isolated JS</button> — triggers the Show method on click.
+4.	Module reference
+•	private IJSObjectReference? _module; — nullable reference to the loaded JS module (ES module). Stores the module instance for 
+later invocations.
+5.	Lifecycle and module loading
+•	protected override async Task OnAfterRenderAsync(bool firstRender) — uses this lifecycle method because JS interop that 
+touches DOM should run after first render.
+•	if (firstRender) ensures the module is imported only once.
+•	_module = await JS.InvokeAsync<IJSObjectReference>("import", "./Components/InteropDemo.razor.js"); — dynamically imports 
+    the ES module at the specified relative path and stores the returned IJSObjectReference.
+6.	Calling JS
+•	async Task Show() — invoked by the button.
+•	await _module!.InvokeVoidAsync("showMessage", "Hello Isolated JS"); — calls the showMessage export from the imported module. 
+Uses the null-forgiving operator ! because _module is nullable but expected to be non-null after first render. *@

@@ -26,6 +26,7 @@
     void Approve()
     {
         OrderService.UpdateStatus(Order, "Approved");
+        Console.WriteLine("Order updared");
     }
 
     void Reject()

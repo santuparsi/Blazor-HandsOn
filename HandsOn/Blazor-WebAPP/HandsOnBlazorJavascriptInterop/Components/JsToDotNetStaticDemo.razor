@@ -1,0 +1,32 @@
+﻿@page "/js-to-dotnet-static"
+@inject IJSRuntime JS
+@rendermode InteractiveServer
+<h3>JavaScript → .NET (Static Method Call)</h3>
+
+<button class="btn btn-warning" @onclick="NotifyJs">
+    Trigger NotifyJs
+</button>
+<button class="btn btn-warning" @onclick="AddJs">
+    Trigger AddJs
+</button>
+<button class="btn btn-warning" @onclick="MultiplyJs">
+    Trigger MultiplyJs
+</button>
+<p>Result from JS Add: @result</p>
+@code {
+    private int result;
+    private async Task NotifyJs()
+    {
+        await JS.InvokeVoidAsync("callNotifyFromJsOnly");
+    }
+    private async Task AddJs()
+    {
+        result = await JS.InvokeAsync<int>("callAddNumbersOnly");
+        Console.WriteLine($"Result in Razor: {result}");
+    }
+    private async Task MultiplyJs()
+    {
+        result = await JS.InvokeAsync<int>("callMultiplyNumbersOnly", 10, 12);
+        Console.WriteLine($"Result in Razor: {result}");
+    }
+}

@@ -1,0 +1,45 @@
+﻿@page "/register"
+@using BlazorAuthDemo.Models
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
+@inject NavigationManager Nav
+@rendermode InteractiveServer
+<h3>Register</h3>
+
+<EditForm Model="model" OnValidSubmit="RegisterUser">
+    <DataAnnotationsValidator />
+
+    <InputText @bind-Value="model.FullName" placeholder="Full Name" />
+    <InputText @bind-Value="model.Email" placeholder="Email" />
+    <InputText @bind-Value="model.Password" type="password" placeholder="Password" />
+
+    <button class="btn btn-success">Register</button>
+</EditForm>
+
+@code {
+    RegisterModel model = new();
+
+    async Task RegisterUser()
+    {
+        var user = new ApplicationUser
+        {
+            UserName = model.Email,
+            Email = model.Email,
+            FullName = model.FullName
+        };
+
+        var result = await UserManager.CreateAsync(user, model.Password);
+        if (result.Succeeded)
+        {
+            await UserManager.AddToRoleAsync(user, "User");
+            Nav.NavigateTo("/login");
+        }
+    }
+
+    class RegisterModel
+    {
+        public string FullName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+    }
+}
