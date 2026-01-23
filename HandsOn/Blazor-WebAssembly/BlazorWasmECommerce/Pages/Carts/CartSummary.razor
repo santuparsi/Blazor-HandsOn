@@ -1,0 +1,61 @@
+﻿@using BlazorWasmECommerce.Models
+@using BlazorWasmECommerce.Services
+@implements IDisposable
+@inject CartState Cart
+
+<h4>Cart Summary</h4>
+
+@if (!Cart.Items.Any())
+{
+    <p>Your cart is empty.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Cart.Items)
+            {
+                <tr>
+                    <td>@item.Product.Name</td>
+                    <td>₹@item.Product.Price</td>
+                    <td>
+                        <button @onclick="() => Decrease(item)">-</button>
+                        @item.Quantity
+                        <button @onclick="() => Increase(item)">+</button>
+                    </td>
+                    <td>₹@(item.Product.Price* item.Quantity)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h5>Total: ₹@Cart.Total</h5>
+}
+@code {
+    void Increase(CartItem item)
+    {
+        Cart.Increase(item);
+    }
+
+    void Decrease(CartItem item)
+    {
+        Cart.Decrease(item);
+    }
+    protected override void OnInitialized()
+    {
+        Cart.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        Cart.OnChange -= StateHasChanged;
+    }
+}

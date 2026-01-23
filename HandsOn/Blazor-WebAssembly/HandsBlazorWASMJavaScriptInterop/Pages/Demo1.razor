@@ -1,0 +1,30 @@
+﻿@page "/wasm-dotnet-to-js"
+@inject IJSRuntime JS // Inject the JavaScript runtime service
+
+<h3>.NET → JavaScript (WASM)</h3>
+<button class="btn btn-primary" @onclick="ShowAlert">
+    Show Alert
+</button>
+@code {
+    private async Task ShowAlert()
+    {
+        await JS.InvokeVoidAsync(
+            "alert",
+            "Hello from  WebAssembly"
+        );
+    }
+}
+@* Call Built-in JavaScript (alert) *@
+@* No server call
+
+JS executed directly in browser
+
+Result appears immediately *@
+@* NET → JavaScript (Blazor WASM)
+When Do We Use It?
+
+Browser APIs (alert, clipboard, storage)
+
+DOM operations
+
+JS libraries (Chart.js, maps, editors) *@

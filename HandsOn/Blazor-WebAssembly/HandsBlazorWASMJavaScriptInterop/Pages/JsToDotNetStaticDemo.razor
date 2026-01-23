@@ -1,0 +1,15 @@
+﻿@page "/wasm-static"
+@inject IJSRuntime JS
+
+<h3>JavaScript → .NET (Static Method)</h3>
+
+<button class="btn btn-primary" @onclick="CallJs">
+    Call Static .NET Methods
+</button>
+
+@code {
+    private async Task CallJs()
+    {
+        await JS.InvokeVoidAsync("callDotNetStatic");
+    }
+}

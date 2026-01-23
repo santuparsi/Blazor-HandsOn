@@ -1,0 +1,20 @@
+﻿@page "/product/{id:int}"
+@using BlazorWasmECommerce.Models
+@using BlazorWasmECommerce.Services
+@inject ProductService ProductService
+@inject CartState Cart
+
+<h3>@product?.Name</h3>
+<p>₹@product?.Price</p>
+
+<button @onclick="() => Cart.Add(product)">Add to Cart</button>
+
+@code {
+    [Parameter] public int id { get; set; }
+    Product product;
+
+    protected override async Task OnInitializedAsync()
+    {
+        product = await ProductService.GetProductByIdAsync(id);
+    }
+}

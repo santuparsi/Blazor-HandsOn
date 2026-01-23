@@ -1,0 +1,24 @@
+﻿@page "/wasm-js-custom"
+@inject IJSRuntime JS
+
+<button @onclick="GetInfo">Get Browser Info</button>
+<button @onclick="Greet">Greet</button>
+
+<p>@browserInfo</p>
+
+@code {
+    private string? browserInfo;
+
+    private async Task GetInfo()
+    {
+        browserInfo = await JS.InvokeAsync<string>(
+            "showBrowserInfo"
+        );
+    }
+    private async Task Greet()
+    {
+        browserInfo = await JS.InvokeAsync<string>(
+            "showGreetMessage"
+        );
+    }
+}

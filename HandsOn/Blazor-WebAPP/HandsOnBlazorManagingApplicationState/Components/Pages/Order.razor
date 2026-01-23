@@ -1,10 +1,16 @@
 ﻿@page "/orders/{orderId:int}"
-
+@inject NavigationManager NavigationManager
+@rendermode InteractiveServer 
 <h3>Order Details</h3>
 
 <p><strong>Order Id:</strong> @orderId</p>
+<button class="btn btn-primary" @onclick="EdidOder">Edit Order</button>
 
 @code {
     [Parameter]
     public int orderId { get; set; }
+    private void EdidOder()
+    {
+        NavigationManager.NavigateTo($"/edit-order");
+    }
 }

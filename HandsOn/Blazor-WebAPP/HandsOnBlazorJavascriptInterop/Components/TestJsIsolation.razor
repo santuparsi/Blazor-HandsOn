@@ -1,0 +1,22 @@
+﻿@page "/js-test"
+@inject IJSRuntime JS
+@rendermode InteractiveServer
+<h3>JS Isolation Test</h3>
+
+<button class="btn btn-primary" @onclick="LoadJs">
+    Load JS Module
+</button>
+
+@code {
+    private IJSObjectReference? module;
+
+    private async Task LoadJs()
+    {
+        module = await JS.InvokeAsync<IJSObjectReference>(
+            "import",
+            "/js/test-module.js"
+        );
+
+        await module.InvokeVoidAsync("sayHello");
+    }
+}

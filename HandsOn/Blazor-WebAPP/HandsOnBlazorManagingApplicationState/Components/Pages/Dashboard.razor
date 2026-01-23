@@ -1,19 +1,12 @@
 ﻿@page "/dashboard"
 @using HandsOnBlazorManagingApplicationState.Services
-@inject AppState AppState
 @implements IDisposable
+@inject AppState AppState
 
 <h3>Dashboard</h3>
 
-@if (AppState.UserName is null)
-{
-    <p><em>Loading state...</em></p>
-}
-else
-{
-    <p>User: @AppState.UserName</p>
-    <p>Role: @AppState.Role</p>
-}
+<p>User: @AppState.UserName</p>
+<p>Role: @AppState.Role</p>
 
 @code {
     protected override void OnInitialized()

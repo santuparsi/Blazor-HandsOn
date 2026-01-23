@@ -1,0 +1,26 @@
+﻿@using BlazorWasmECommerce.Pages.Shared
+@using BlazorWasmECommerce.Services
+@using BlazorWasmECommerce.Models
+@inject ProductService ProductService
+@inject CartState Cart
+
+@if (products == null)
+{
+    <Loading />
+}
+else
+{
+    foreach (var product in products)
+    {
+        <ProductCard Product="product" OnAdd="Cart.Add" />
+    }
+}
+
+@code { 
+    List<Product> products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await ProductService.GetProductsAsync();
+    }
+}

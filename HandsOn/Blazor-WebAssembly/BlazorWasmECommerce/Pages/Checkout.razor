@@ -1,0 +1,22 @@
+﻿@page "/checkout"
+@using BlazorWasmECommerce.Models
+
+<EditForm Model="@order" OnValidSubmit="PlaceOrder">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText @bind-Value="order.CustomerName" placeholder="Name" />
+    <InputText @bind-Value="order.Email" placeholder="Email" />
+    <InputText @bind-Value="order.Address" placeholder="Address" />
+
+    <button type="submit">Place Order</button>
+</EditForm>
+
+@code {
+    Order order = new();
+
+    void PlaceOrder()
+    {
+        Console.WriteLine("Order placed");
+    }
+}

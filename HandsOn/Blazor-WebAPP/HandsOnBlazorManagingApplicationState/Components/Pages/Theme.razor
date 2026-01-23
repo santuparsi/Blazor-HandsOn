@@ -1,0 +1,58 @@
+﻿@page "/theme"
+@using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage
+@rendermode InteractiveServer
+
+@inject ProtectedSessionStorage SessionStorage
+
+
+<h3>ProtectedSessionStorage Demo</h3>
+
+<p><strong>Current Theme:</strong> @_theme</p>
+
+<button class="btn btn-dark me-2" @onclick="SetDarkTheme">
+    Set Dark Theme
+</button>
+
+<button class="btn btn-secondary me-2" @onclick="SetLightTheme">
+    Set Light Theme
+</button>
+
+<button class="btn btn-danger" @onclick="ClearTheme">
+    Clear Theme
+</button>
+
+@code {
+    private string _theme = "Not Set";
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var result = await SessionStorage.GetAsync<string>("theme");
+
+            if (result.Success)
+            {
+                _theme = result.Value ?? "Not Set";
+                StateHasChanged(); // required
+            }
+        }
+    }
+
+    private async Task SetDarkTheme()
+    {
+        _theme = "Dark";
+        await SessionStorage.SetAsync("theme", _theme);
+    }
+
+    private async Task SetLightTheme()
+    {
+        _theme = "Light";
+        await SessionStorage.SetAsync("theme", _theme);
+    }
+
+    private async Task ClearTheme()
+    {
+        await SessionStorage.DeleteAsync("theme");
+        _theme = "Not Set";
+    }
+}

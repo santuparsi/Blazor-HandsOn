@@ -3,36 +3,36 @@
     BarController,
     BarElement,
     CategoryScale,
-    LinearScale,
-    Tooltip,
-    Legend
+    LinearScale
 } from "https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.esm.js";
 
+/* 🔴 REQUIRED in Chart.js v4 */
 Chart.register(
     BarController,
     BarElement,
     CategoryScale,
-    LinearScale,
-    Tooltip,
-    Legend
+    LinearScale
 );
 
-export function createBarChart(canvas, labels, values) {
+console.log("✅ chart-isolated.js loaded");
 
-    console.log("✅ JS module loaded, creating chart");
+export function renderBarChart(canvas) {
+
+    console.log("✅ renderBarChart called");
 
     new Chart(canvas, {
         type: 'bar',
         data: {
-            labels: labels,
+            labels: ["Jan", "Feb", "Mar", "Apr"],
             datasets: [{
-                label: 'Sales',
-                data: values,
-                backgroundColor: 'rgba(54, 162, 235, 0.7)'
+                label: "Sales",
+                data: [10, 25, 15, 30],
+                backgroundColor: "rgba(54, 162, 235, 0.7)"
             }]
         },
         options: {
-            responsive: false
+            responsive: false,
+            animation: false
         }
     });
 }

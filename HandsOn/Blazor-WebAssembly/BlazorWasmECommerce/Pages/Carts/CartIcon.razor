@@ -1,0 +1,19 @@
+﻿@using BlazorWasmECommerce.Services
+@inject CartState Cart
+@implements IDisposable
+
+<a href="/cart">
+    🛒 (@Cart.Items.Sum(i => i.Quantity))
+</a>
+
+@code {
+    protected override void OnInitialized()
+    {
+        Cart.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        Cart.OnChange -= StateHasChanged;
+    }
+}

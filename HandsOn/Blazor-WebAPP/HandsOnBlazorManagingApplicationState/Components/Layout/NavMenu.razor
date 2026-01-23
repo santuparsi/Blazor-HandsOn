@@ -1,6 +1,8 @@
 ﻿@using HandsOnBlazorManagingApplicationState.Services
 @inject AppState AppState
+@inject NavigationManager navigationManager
 @rendermode InteractiveServer
+
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="">HandsOnBlazorManagingApplicationState</a>
@@ -28,12 +30,47 @@
                 <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
             </NavLink>
         </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="theme">
+                Theme (Session Storage)
+            </NavLink>
+        </div>
+
         @if (!string.IsNullOrEmpty(AppState.UserName))
         {
-            @* <button @onclick="Logout">Logout</button> *@
+            <div class="nav-item px-3">
+                <button class="btn btn-primary" @onclick="LogOut">
+                    <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Logout
+                </button>
+            </div>
         }
     </nav>
 </div>
 @code {
-   
+
+    
+    protected override void OnInitialized()
+    {
+        AppState.OnChange += OnAppStateChanged;
+        Console.WriteLine("Username" + AppState.UserName);
+    }
+
+    private async void OnAppStateChanged()
+    {
+        // ✅ Marshal back to the UI Dispatcher
+        await InvokeAsync(StateHasChanged);
+    }
+
+    public void Dispose()
+    {
+        AppState.OnChange -= OnAppStateChanged;
+    }
+
+    private async Task LogOut()
+    {
+        AppState.Clear();
+        navigationManager.NavigateTo("/login");
+    }
+
+    
 }

@@ -1,0 +1,18 @@
+﻿@using BlazorWasmECommerce.Models
+
+<div class="card">
+    <h4>@Product.Name</h4>
+    <p>₹@Product.Price</p>
+
+    <button @onclick="AddToCart">Add to Cart</button>
+</div>
+
+@code {
+    [Parameter] public Product Product { get; set; }
+    [Parameter] public EventCallback<Product> OnAdd { get; set; }
+
+    async Task AddToCart()
+    {
+        await OnAdd.InvokeAsync(Product);
+    }
+}

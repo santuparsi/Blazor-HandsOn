@@ -1,7 +1,4 @@
-﻿@using HandsOnBlazorManagingApplicationState.Services
-@inject AppState AppState
-@inherits LayoutComponentBase
-
+﻿@inherits LayoutComponentBase
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -25,16 +22,7 @@
 </div>
 
 
-@code {
-    private bool _initialized;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender && !_initialized)
-        {
-            _initialized = true;
-            await AppState.InitializeAsync();
-            StateHasChanged();
-        }
-    }
+@code {
+   
 }

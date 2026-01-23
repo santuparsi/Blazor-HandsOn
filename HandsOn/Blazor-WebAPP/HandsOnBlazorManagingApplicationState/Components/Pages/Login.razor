@@ -1,16 +1,16 @@
 ﻿@page "/login"
-@inject NavigationManager Nav
-@rendermode InteractiveServer
 @using HandsOnBlazorManagingApplicationState.Services
 @inject AppState AppState
 @inject NavigationManager Nav
+@rendermode InteractiveServer
+<h3>Login</h3>
 
-<button @onclick="Validate">Login</button>
+<button @onclick="LoginAsAdmin">Login as Admin</button>
 
 @code {
-    async Task Validate()
+    void LoginAsAdmin()
     {
-        await AppState.LoginAsync("San", "Admin");
+        AppState.SetUser("San", "Admin");
         Nav.NavigateTo("/dashboard");
     }
 }
