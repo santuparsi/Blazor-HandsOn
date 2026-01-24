@@ -1,4 +1,4 @@
-﻿window.registerInstanceService = function (dotNetRef) {
+﻿window.registerInstanceService = async function (dotNetRef) {
 
     setTimeout(() => {
         dotNetRef.invokeMethodAsync(

@@ -1,0 +1,12 @@
+﻿@using BlazorApp.Web.Services
+@inject IWeatherService IWeatherService
+<p>@temperature</p>
+
+@code {
+    int temperature;
+
+    protected override async Task OnInitializedAsync()
+    {
+        temperature = await IWeatherService.GetTemperatureAsync();
+    }
+}

@@ -38,5 +38,15 @@ namespace BlazorApp.Tests
             Assert.Contains("Laptop", cut.Markup);
             Assert.Contains("Keyboard", cut.Markup);
         }
+        [Fact]
+        public void LoginForm_ShowsValidationErrors()
+        {
+            var cut = Render<Login>();
+
+            cut.Find("button").Click();
+
+            cut.Markup.Contains("required");
+        }
+
     }
 }

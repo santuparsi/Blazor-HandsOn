@@ -1,12 +1,12 @@
-using BlazorApp.Web.Components;
-using BlazorApp.Web.Services;
+using BlazorApp.Components;
+using BlazorApp.Services;
+using BlazorApp.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddScoped<IProductService,ProductService>();
-builder.Services.AddScoped<CounterService>();
-builder.Services.AddSingleton<IWeatherService, FakeWeatherService>();
+builder.Services.AddScoped<IDiscountService, DiscountService>();
+builder.Services.AddScoped<CartService>();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 

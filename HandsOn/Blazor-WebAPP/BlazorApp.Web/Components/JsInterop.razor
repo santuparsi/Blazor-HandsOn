@@ -1,0 +1,10 @@
+﻿@inject IJSRuntime JS
+@rendermode InteractiveServer
+<button @onclick="ShowAlert">Alert</button>
+
+@code {
+    async Task ShowAlert()
+    {
+        await JS.InvokeVoidAsync("alert", "Hello");
+    }
+}
