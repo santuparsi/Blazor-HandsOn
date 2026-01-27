@@ -1,4 +1,5 @@
-﻿export async function subscribe(vapidPublicKey) {
+﻿// This file contains JavaScript functions to manage push notifications
+export async function subscribe(vapidPublicKey) {
     const registration = await navigator.serviceWorker.ready;
 
     const subscription = await registration.pushManager.subscribe({
